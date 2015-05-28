@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html data-ng-app="app" manifest="my.appcache">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title data-ng-bind="$root.title">W-Lexicon</title>
+        
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+        
+        <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+        <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script> 
+        
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        
+        <script src="Scripts/controllers.js"></script>
+        <script src="Scripts/route.js"></script>
+        <script src="Scripts/service.js"></script>
+        
+        
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styl.css" rel="stylesheet">
+        
+        
+    </head>
+
+    <body>
+        
+    <article>
+        <h1 style="display: none">{{ $root.title }}</h1>
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+      
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        
+        <header>
+            <span class="navbar-brand">
+                <svg>
+                    <ellipse cx="55%" cy="50%" rx="45%" ry="50%" style="fill:white" />
+                    <circle cx="50%" cy="50%" r="45%" style="fill:black;stroke:white;stroke-width:1;fill-opacity:0.8;stroke-opacity:0.9" />
+                    <text id="text" fill="white" x="50%" y="20" text-anchor="middle" alignment-baseline="baseline">W</text> 
+                </svg> 
+            </span>
+                <span class="navbar-brand" style="-ms-transform: rotate(-6deg); -webkit-transform: rotate(-6deg); transform: rotate(-6deg);">
+                    W-Lexicon
+                </span>
+        </header>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li data-ng-class="{'active': state == 0 || state == undefined}">
+            <a href="#/" data-ng-click="state = 0">
+                <span class="glyphicon glyphicon-open"></span> Upload
+            </a>
+        </li>
+        <li data-ng-class="{'active': state == 1}">
+            <a href="#/learn" data-ng-click="state = 1">
+                <span class="glyphicon glyphicon-education"></span> Practise
+            </a>
+        </li>
+        <li data-ng-class="{'active': state == 2}">
+            <a href="#/results" data-ng-click="state = 2">
+                <span class="glyphicon glyphicon-list-alt"></span> Results
+            </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li data-ng-class="{'active': state == 3}">
+            <a href="#/about" data-ng-click="state = 3">
+                <span class="glyphicon glyphicon-info-sign"></span> About
+            </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+        
+        <div data-ng-view class="container-fluid">
+            
+        </div>
+        </article>    
+    </body>
+</html>

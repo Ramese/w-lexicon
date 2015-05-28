@@ -1,0 +1,102 @@
+<section>
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel" data-ng-class="{'panel-primary' : started == 0, 'panel-default': started == 1}">
+            <div class="panel-heading">
+                <h6>
+                    Settings:
+                </h6>
+            </div>
+
+            <div class="panel-body" data-ng-show="count != 0">
+                <form class="form-vertical" data-ng-submit="settings()">
+                    <div class="form-group">
+                        <label class="control-label">Switch languages</label>
+                        <input type="checkbox" data-ng-model="langSwitch" data-ng-change="settingsChange()" data-ng-disabled="progress == 100 || started" />
+                        <input type="text" class="form-control" readonly data-ng-model="example" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Hit count:</label>
+                        <input type="number" min="0" max="10" class="form-control" data-ng-model="hitcount" data-ng-change="settingsChange()" data-ng-disabled="progress == 100 || started" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary col-sm-12" value="Start" data-ng-disabled="count == 0 || started == true" data-ng-show="started == false && progress == 0" />
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-default col-sm-12" value="Restart" data-ng-click="reset()" data-ng-show="started == true || progress == 100" />
+                    </div>
+                </form>
+            </div>
+
+            <div class="panel-body" data-ng-show="count == 0">
+                <span>Load some dictionary ... </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="col-xs-12 col-sm-6"  data-ng-show="count != 0">
+        <div class="panel" data-ng-class="{'panel-primary': phase == 'try', 'panel-default': started == 0 || phase == 'end', 'panel-success': phase == 'hit', 'panel-danger': phase == 'miss'}">
+            <div class="panel-heading">
+                <h6>
+                    Translate:
+                </h6>
+            </div>
+
+            <div class="panel-body" data-ng-show="phase == 'try' || phase == 'miss' || phase == 'hit'">
+                <form class="form-vertical" data-ng-submit="tryTranslate()" name="tryForm">
+                    <div class="form-group">
+                        <label class="control-label">Word:</label>
+                        <input type="text" class="form-control" readonly data-ng-model="wordToTranslate" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" data-ng-show="phase == 'try'">Translation:</label>
+                        <label class="control-label" data-ng-show="phase == 'hit'">Correct:</label>
+                        <label class="control-label" data-ng-show="phase == 'miss'">Wrong:</label>
+                        <input type="text" class="form-control" placeholder="Translate here" data-ng-disabled="count == 0 || started == false || phase == 'end'" data-ng-required="1" data-ng-minlength="1" data-ng-model="translation" />
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary col-sm-12" value="Try!" data-ng-disabled="count == 0 || started == false || tryForm.$invalid" data-ng-if="phase == 'try'" />
+                        <input type="submit" class="btn btn-danger col-sm-12" value="Next" data-ng-if="phase == 'miss'" />
+                        <input type="submit" class="btn btn-success col-sm-12" value="Next" data-ng-if="phase == 'hit'" />
+                    </div>
+                </form>
+            </div>
+            <div class="panel-body" data-ng-show="phase == 'end'">
+                <h3>Done</h3>
+            </div>
+            <div class="panel-body" data-ng-show="phase == 'init'">
+                <span>Hit start button ... </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="col-xs-12" data-ng-show="phase != 'init'">
+        <div class="panel" data-ng-class="{'panel-info': phase != 'end', 'panel-primary': phase == 'end'}">
+            <div class="panel-heading">
+                <h6>
+                    Statistic:
+                </h6>
+            </div>
+
+            <div class="panel-body">
+                <h5>Progress:</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ progress }}%;">
+                        {{ progress }}%
+                    </div>
+                </div>
+
+                <h5>Success rate:</h5>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{ rate }}%;" data-ng-class="{'progress-bar-success': rate > 95, 'progress-bar-warning': rate >= 50 && rate < 70, 'progress-bar-danger': rate < 50}">
+                        {{ rate }}%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
