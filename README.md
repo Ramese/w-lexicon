@@ -1,0 +1,2 @@
+# w-lexicon
+Semestral project
